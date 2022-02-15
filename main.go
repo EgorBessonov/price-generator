@@ -22,6 +22,7 @@ func main() {
 		log.Fatalf("can't parse configs")
 	}
 	shList := generator.NewShareList()
+	shList.AddShares()
 	redisClient, err := newRedisClient(&cfg)
 	if err != nil {
 		logrus.WithFields(logrus.Fields{

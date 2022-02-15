@@ -68,6 +68,17 @@ func NewShareList() *ShareList {
 	}}
 }
 
+func (sl *ShareList) AddShares() {
+	for i := 5; i <= 150; i++ {
+		sl.List = append(sl.List, model.Share{
+			Name:      i + 1,
+			Bid:       15,
+			Ask:       16,
+			UpdatedAt: time.Now().Format(time.RFC3339Nano),
+		})
+	}
+}
+
 //GeneratePrices updates share prices
 func (sl *ShareList) GeneratePrices() {
 	for i := range sl.List {

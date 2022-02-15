@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const generationTime = 30
+const generationTime = 2
 
 //Service struct
 type Service struct {
