@@ -3,13 +3,14 @@ package service
 
 import (
 	"context"
+	"time"
+
 	"github.com/EgorBessonov/price-generator/intrenal/generator"
 	"github.com/EgorBessonov/price-generator/intrenal/producer"
 	"github.com/sirupsen/logrus"
-	"time"
 )
 
-const generationTime = 2
+const generationTime = 50
 
 //Service struct
 type Service struct {
@@ -27,7 +28,7 @@ func NewService(pr *producer.Producer, shareList *generator.ShareList) *Service 
 
 //StartPriceGenerator start price generation
 func (s *Service) StartPriceGenerator(ctx context.Context) {
-	ticker := time.NewTicker(time.Second * generationTime)
+	ticker := time.NewTicker(time.Millisecond * generationTime)
 	go func() {
 		for {
 			select {

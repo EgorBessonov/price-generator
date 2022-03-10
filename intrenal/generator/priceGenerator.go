@@ -9,12 +9,13 @@ import (
 )
 
 const (
-	randSeed = 5
-	AMAZON   = iota
+	AMAZON = iota + 1
 	APPLE
 	MICROSOFT
 	NETFLIX
 	PFIZER
+	minShift = -1.5
+	maxShift = 1.5
 )
 
 // ShareList represents all  which could be generated
@@ -68,33 +69,21 @@ func NewShareList() *ShareList {
 	}}
 }
 
-func (sl *ShareList) AddShares() {
-	for i := 5; i <= 150; i++ {
-		sl.List = append(sl.List, model.Share{
-			Name:      i + 1,
-			Bid:       15,
-			Ask:       16,
-			UpdatedAt: time.Now().Format(time.RFC3339Nano),
-		})
-	}
-}
-
 //GeneratePrices updates share prices
 func (sl *ShareList) GeneratePrices() {
 	for i := range sl.List {
 		rp := randPrice()
 		if rp > 0 {
-			sl.List[i].Bid += rp
-			sl.List[i].Ask += 2 * rp
+			sl.List[i].Bid -= rp / 2
+			sl.List[i].Ask -= rp
 		} else {
-			sl.List[i].Bid += rp
-			sl.List[i].Ask += rp / 2
+			sl.List[i].Bid +=  rp
+			sl.List[i].Ask +=  rp / 2
 		}
 		sl.List[i].UpdatedAt = time.Now().Format(time.RFC3339Nano)
 	}
 }
 
 func randPrice() float32 {
-	r := rand.New(rand.NewSource(randSeed))
-	return r.Float32() - float32(1.0)
+	return minShift + rand.Float32()*(maxShift-minShift)
 }

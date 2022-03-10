@@ -1,0 +1,19 @@
+apiVersion: app/v1
+kind: Deployment
+metadata: 
+  name: price-generator
+  labels:
+    app: price-generator
+spec:
+  selector:
+    matchLabels:
+      app: price-generator
+    template:
+      metadata:
+        labels:
+          app: price-generator
+      spec:
+        containers:
+          - name: price-generator
+            image: "price-generator:latest"
+            imagePullPolicy: IfNotPresent
